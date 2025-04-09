@@ -1,0 +1,24 @@
+<div class="weather-container">
+  <h1>🌤️ Weather Forecast</h1>
+
+  <div class="search-box">
+    <input type="text" [(ngModel)]="cityName" placeholder="Enter a city..." />
+    <button (click)="getWeather()">Get Weather</button>
+  </div>
+
+  <div *ngIf="weatherData" class="weather-card">
+    <h2>{{ weatherData.location.name }}, {{ weatherData.location.country }}</h2>
+    <p class="time">{{ weatherData.location.localtime }}</p>
+
+    <img [src]="'https:' + weatherData.current.condition.icon" alt="Weather Icon" />
+
+    <div class="weather-info">
+      <h3>{{ weatherData.current.temp_c }}°C / {{ weatherData.current.temp_f }}°F</h3>
+      <p class="condition">{{ weatherData.current.condition.text }}</p>
+      <p>Humidity: <strong>{{ weatherData.current.humidity }}%</strong></p>
+      <p>Wind: <strong>{{ weatherData.current.wind_kph }} km/h</strong></p>
+      <p>UV Index: <strong>{{ weatherData.current.uv }}</strong></p>
+    </div>
+  </div>
+</div>
+
