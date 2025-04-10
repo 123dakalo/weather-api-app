@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {WeatherService} from '../weather.service';
-import {Weather} from '../weather';
 
 @Component({
   selector: 'app-weather-api',
@@ -10,7 +9,7 @@ import {Weather} from '../weather';
 })
 export class WeatherApiComponent {
 
-  cityName: string = 'Thohoyandou';
+  cityName: string = '';
   weatherData: any;
 
   constructor(private weatherService: WeatherService) {}
@@ -19,5 +18,26 @@ export class WeatherApiComponent {
     this.weatherService.getWeatherData(this.cityName).subscribe(data => {
       this.weatherData = data;
     },error => console.log(error));
+  }
+
+  getWeatherByLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const coords = `${position.coords.latitude},${position.coords.longitude}`;
+          this.weatherService.getWeatherData(coords).subscribe(
+            data => this.weatherData = data,
+            error => console.log('Weather fetch error:', error)
+          );
+        },
+        error => {
+          console.error('Geolocation error:', error);
+          this.getWeather(); // fallback
+        }
+      );
+    } else {
+      console.error('Geolocation not supported.');
+      this.getWeather(); // fallback
+    }
   }
 }

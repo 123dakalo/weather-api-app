@@ -1,9 +1,16 @@
 <div class="weather-container">
-  <h1>🌤️ Weather Forecast</h1>
+  <h1>Weather API</h1>
 
-  <div class="search-box">
-    <input type="text" [(ngModel)]="cityName" placeholder="Enter a city..." />
-    <button (click)="getWeather()">Get Weather</button>
+  <div class="search-box1">
+    <div class="search-box">
+      <input type="text" [(ngModel)]="cityName" placeholder="Enter a city..." />
+      <button (click)="getWeather()">Get Weather</button>
+    </div>
+    <div>
+      <button class="btn-location" (click)="getWeatherByLocation()">
+        📍 Use My Location
+      </button>
+    </div>
   </div>
 
   <div *ngIf="weatherData" class="weather-card">
